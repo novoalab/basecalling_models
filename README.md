@@ -1,1 +1,18 @@
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
 # basecalling_models
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+We benchmarked the ability of novel base calling models to detect RNA
+modifications from native RNA reads generated on the Oxford Nanopore
+Technologies platform. The tested base calling models are listed below:
+
+- rna_r9.4.1_70bps_hac (default)
+- rna_r9.4.1_70bps_ivt_hac (ivt)
+- rna_r9.4.1_70bps_sup (sup)
+
+All files related to the specific model can be found under
+`/path/to/publicdocs*`
