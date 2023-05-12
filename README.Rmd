@@ -11,6 +11,8 @@ knitr::opts_chunk$set(
 )
 ```
 
+![](img/logo.png)
+
 # basecalling_models
 
 <!-- badges: start -->
