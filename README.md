@@ -1,6 +1,8 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
+![](img/logo.png)
+
 # basecalling_models
 
 <!-- badges: start -->

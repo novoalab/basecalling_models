@@ -24,15 +24,3 @@ The tested base calling models are listed below:
 * rna_r9.4.1_70bps_sup (sup)
 
 All files related to the specific model can be found under `/path/to/publicdocs*`
-
-```{r cars}
-summary(cars)
-```
-
-
-
-```{r pressure, echo = FALSE}
-plot(pressure)
-```
-
-In that case, don't forget to commit and push the resulting figure files, so they display on GitHub.
