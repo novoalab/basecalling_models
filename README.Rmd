@@ -25,4 +25,4 @@ The tested base calling models are listed below:
 * rna_r9.4.1_70bps_ivt_hac (ivt)
 * rna_r9.4.1_70bps_sup (sup)
 
-All files related to the specific model can be found under `/path/to/publicdocs*`
+All files required to run guppy with these models can be downloaded from [OSF](https://osf.io/2xgkp/). 

@@ -16,5 +16,5 @@ Technologies platform. The tested base calling models are listed below:
 - rna_r9.4.1_70bps_ivt_hac (ivt)
 - rna_r9.4.1_70bps_sup (sup)
 
-All files required to run guppy with the specified folders can be found
-on [OSF](https://osf.io/2xgkp/).
+All files required to run guppy with these models can be downloaded from
+[OSF](https://osf.io/2xgkp/).
