@@ -41,6 +41,9 @@ installed on your system. Next, download the files of each model from
 [OSF](https://osf.io/2xgkp/). This should include three files per model:
 
 ``` bash
+
+#<model> has to be exchanged for the users model of choice
+
 rna_r9.4.1_70bps_<model>.cfg
 rna_r9.4.1_70bps_<model>.cfg~ 
 template_rna_r9.4.1_70bps_<model>.jsn
@@ -49,7 +52,9 @@ template_rna_r9.4.1_70bps_<model>.jsn
 Make sure to place these files in the following folder within guppy
 
 ``` bash
+
 #<version> has to be exchanged for the users guppy version
+
 ~/ont-guppy_<version>/data/
 ```
 
@@ -57,7 +62,9 @@ In order to run them use the `-c [ --config ] arg` flag and specify the
 desired config file
 
 ``` bash
+
 #<model> has to be exchanged for the users model of choice
+
 guppy_basecaller –i ./fast5 –s ./guppy_out –c -c rna_r9.4.1_70bps_<model>.cfg --num_callers 2 --cpu_threads_per_caller 1
 ```
 
@@ -67,7 +74,9 @@ For use within the MasterofPores nextflow pipleline download the files
 specified above into the `mop_preprocess` module as follows:
 
 ``` bash
+
 #<version> has to be exchanged for the users guppy version
+
 ~/MOP3/mop_preprocess/bin/ont-guppy_<version>/data/
 ```
 
@@ -96,7 +105,7 @@ discovery       bambu   ""
 
 Running mop_preprocess from there as specified in the pipelines
 [documentation](https://biocorecrg.github.io/MOP2/docs/about.html) will
-use the user provided basecalling model.
+use the provided basecalling model.
 
 ## Citation
 
