@@ -3,7 +3,7 @@
 
 ![](img/logo.png)
 
-# <nobr> Basecalling Models for enhanced RNA modification detection
+# <nobr> Basecalling Models for enhanced RNA modification detection <nobr>
 
 <!-- badges: start -->
 <!-- badges: end -->
