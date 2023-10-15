@@ -1,9 +1,9 @@
+# </nobr> Basecalling Models for enhanced RNA modification detection </nobr>
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 ![](img/logo.png)
 
-# </nobr> Basecalling Models for enhanced RNA modification detection </nobr>
 
 <!-- badges: start -->
 <!-- badges: end -->
