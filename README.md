@@ -12,8 +12,8 @@
 
 - [General](#General)
 - [How to use these models?](#How%20to%20use%20these%20models?)
-  - [Standalone](#Create-new-annotation-files)
-  - [Master of Pores](#Map-reads-to-cytoplasmic-ribosomal-RNA-sequences)
+  - [Standalone](#Standalone)
+  - [Master of Pores](#Master-of-Pores)
 - [Software versions](#Software-versions)
 - [Citation](#Citation)
 
