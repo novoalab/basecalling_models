@@ -97,13 +97,13 @@ use the provided basecalling model.
 
 ## Software versions
 
-| Software  |      Version
-|:-------------:|
-| Guppy | xxx
-| MasterOfPores  | xxx
-| Singularity| xxx
-| Nextflow | xxx
-| CUDA| xxx
+| Software  |      Version| 
+|:-------------:|:-------------:|
+| Guppy | xxx | 
+| MasterOfPores  | xxx | 
+| Singularity| xxx | 
+| Nextflow | xxx | 
+| CUDA| xxx | 
 
 ## Citation
 
