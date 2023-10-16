@@ -11,7 +11,7 @@
 - [General](#General)
 - [How to use these models?](#How%20to%20use%20these%20models?)
   - [Standalone](#Standalone)
-  - [Master of Pores](#Master-of-Poress)
+  - [Master of Pores](#Master-of-Pores)
 - [Software versions](#Software-versions)
 - [Citation](#Citation)
 
