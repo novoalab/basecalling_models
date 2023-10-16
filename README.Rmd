@@ -69,7 +69,7 @@ guppy_basecaller –i ./fast5 –s ./guppy_out -c rna_r9.4.1_70bps_<model>.cfg -
 For use within the MasterofPores nextflow pipleline download the files specified above into the `mop_preprocess` module as follows:
 
 ```bash
-~/MOP3/mop_preprocess/bin/ont-guppy_<version>/data/
+~/MOP2/mop_preprocess/bin/ont-guppy_<version>/data/
 ```
 
 specify them in the appropriate config file (either `drna_tool_splice_guppy6_opt.tsv` or `drna_tool_unsplice_guppy6_opt.tsv`) found in `~/mop_preprocess/tools_opts`. An example file is shown below:

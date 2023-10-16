@@ -66,7 +66,7 @@ For use within the MasterofPores nextflow pipleline download the files
 specified above into the `mop_preprocess` module as follows:
 
 ``` bash
-~/MOP3/mop_preprocess/bin/ont-guppy_<version>/data/
+~/MOP2/mop_preprocess/bin/ont-guppy_<version>/data/
 ```
 
 specify them in the appropriate config file (either
