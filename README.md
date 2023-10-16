@@ -1,9 +1,9 @@
+# </nobr> Basecalling Models for enhanced RNA modification detection </nobr>
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 ![](img/logo.png)
 
-# </nobr> Basecalling Models for enhanced RNA modification detection </nobr>
 
 <!-- badges: start -->
 <!-- badges: end -->
@@ -12,8 +12,8 @@
 
 - [General](#General)
 - [How to use these models?](#How%20to%20use%20these%20models?)
-  - [Standalone](#Create-new-annotation-files)
-  - [Master of Pores](#Map-reads-to-cytoplasmic-ribosomal-RNA-sequences)
+  - [Standalone](#Standalone)
+  - [Master of Pores](#Master-of-Poress)
 - [Software versions](#Software-versions)
 - [Citation](#Citation)
 
