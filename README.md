@@ -1,9 +1,9 @@
+# </nobr> Basecalling Models for enhanced RNA modification detection </nobr>
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 ![](img/logo.png)
 
-# </nobr> Basecalling Models for enhanced RNA modification detection </nobr>
 
 <!-- badges: start -->
 <!-- badges: end -->
@@ -12,8 +12,9 @@
 
 - [General](#General)
 - [How to use these models?](#How%20to%20use%20these%20models?)
-  - [Standalone](#Create-new-annotation-files)
-  - [Master of Pores](#Map-reads-to-cytoplasmic-ribosomal-RNA-sequences)
+  - [Standalone](#Standalone)
+  - [Master of Pores](#Master-of-Pores)
+- [Software versions](#Software-versions)
 - [Citation](#Citation)
 
 ## General
@@ -93,6 +94,16 @@ discovery       bambu   ""
 Running mop_preprocess from there as specified in the pipelines
 [documentation](https://biocorecrg.github.io/MOP2/docs/about.html) will
 use the provided basecalling model.
+
+## Software versions
+
+| Software  |      Version| 
+|:-------------:|:-------------:|
+| Guppy | xxx | 
+| MasterOfPores  | xxx | 
+| Singularity| xxx | 
+| Nextflow | xxx | 
+| CUDA| xxx | 
 
 ## Citation
 
