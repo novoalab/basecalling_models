@@ -1,0 +1,175 @@
+---
+title: "Novoa Lab"
+author: "Gregor Diensthuber"
+date: "`r Sys.Date()`"
+output: openintro::lab_report
+---
+
+```{r load-packages, include=FALSE}
+
+library(openintro)
+
+pkgs <- c("backports","tidyverse","here","skimr","dplyr", "ggplot2", "ggsci",
+          "janitor","readxl","xlsx", "MetBrewer","ggrepel", "usethis", "ggpubr")
+
+lapply(pkgs, library, character.only = TRUE)
+
+```
+
+
+# Running eligos2 for pairwise-comparisons of wildtype and Mettl3-/- in HEK293T
+
+The initial idea was to run eligos2 on the entire genome but this provided runtime issues (projected runtime 550h per sample). For this reason
+I first filtered the gtf file to only include protein coding genes which I then converted to a bed file that could be used as input for eligos2.
+To further improve runtime I split the bed into each individual chromosome to submit each of them as independant jobs.
+
+```{bash, generate_sites, eval=F}
+
+# The genome annotation file is filtered for protein coding genes
+
+awk '$3 == "gene"' Homo_sapiens.GRCh38.107.gtf | awk -F"\t" '$9 ~ /gene_biotype "protein_coding"/ {print $0}' > Homo_sapiens.GRCh38.107_protein_coding_only.gtf
+
+# Conversion of gtf to bed using bedops
+
+gtf2bed < Homo_sapiens.GRCh38.107_protein_coding_only.gtf > Homo_sapiens.GRCh38.107_protein_coding_only.bed
+
+```
+
+## Splitting of bed reference into individual chromosomes
+
+next the file was split into individual chromosomes using a helper function written in R
+
+```{r, split_bed, eval=FALSE}
+
+###############################################################
+### Split by chromosome and save each files one as a new df ###
+###############################################################
+
+
+### Task 1 : Load packages ----
+
+pkgs <- c("backports","tidyverse","here","skimr","dplyr", "ggplot2", "ggsci","ggforce",
+          "janitor","readxl","xlsx", "MetBrewer","ggrepel", "usethis", "ggpubr", "forcats")
+
+lapply(pkgs, library, character.only = TRUE)
+
+
+### Task 2: Import cleaned and filter data ----
+
+raw <- read.table(file = "/Users/gregordiensthuber/cluster/gdiensthuber/references/misc/human_m6A_sites/protein_coding_split_by_chr/Homo_sapiens.GRCh38.107_protein_coding_only.bed", sep = "\t")
+
+list_of_chr <- raw %>% 
+  group_by(V1) %>% 
+  group_split()
+
+### Task 3: Save each file as a for loop:
+
+
+for (i in 1:length(list_of_chr)){
+  
+  write.table(list_of_chr[[i]], paste0("/Users/gregordiensthuber/cluster/gdiensthuber/references/misc/human_m6A_sites/protein_coding_split_by_chr/chr_",list_of_chr[[i]][[1]][1],".bed"),quote = F, col.names = F, row.names = F, sep = "\t")
+  
+}
+
+
+```
+
+## Submission and Run scripts for eligos2
+
+Below are the submission and run scripts for eligos2, used to generate pairwise comparisons between wt
+and Mettl3-/-.
+
+```{bash, run_eligos2_pair_diff_mod, eval=FALSE}
+
+#!bin/bash
+
+# Load Singularity
+module load Singularity/3.8.3
+
+# Define parameters
+chr=$(basename $sites .bed)
+
+wt="/no_backup/enovoa/nextflow_outputs/rna_mods_new_models/human/rna_r9.4.1_70bps_ivt_hac.cfg/MOP/wt_merge/alignment/wt_merge_s.bam"
+ko="/no_backup/enovoa/nextflow_outputs/rna_mods_new_models/human/rna_r9.4.1_70bps_ivt_hac.cfg/MOP/ko_merge/alignment/ko_merge_s.bam"
+bed=$sites
+ref="/users/enovoa/gdiensthuber/references/H_sapiens/Homo_sapiens.GRCh38.dna_sm.primary_assembly.fa"
+outdir="/no_backup/enovoa/nextflow_outputs/rna_mods_new_models/human/rna_r9.4.1_70bps_ivt_hac.cfg/eligos2/merge/$chr"
+
+# Step 1: Generate a new dir for each chromosome
+mkdir $outdir
+
+# Run commands
+singularity exec -e ~/src/eligos2.sif eligos2 pair_diff_mod -tbam $wt -cbam $ko -reg $bed -ref $ref -t 8 --pval 1e-5  --oddR 2.5 --esb 0 -o $outdir --force
+
+```
+
+
+
+```{bash, sub_eligos2_pair_diff_mod, eval=FALSE}
+
+#!/bin/sh
+# Author: Gregor Diensthuber
+# Purpose: Submit single jobs for each chromosome with
+
+search_dir=/users/enovoa/gdiensthuber/references/misc/human_m6A_sites/protein_coding_split_by_chr
+
+for entry in "$search_dir"/*
+do
+
+  jobname=$(basename $entry .bed)
+
+  qsub -cwd -v sites=$entry -q long-sl7 -pe smp 8 -l virtual_free=50G,h_rt=120:00:00 -N merge_sup_human_$jobname ~/bash_scripts/eligos_2_run_advcd.sh
+
+done
+
+```
+
+## Merging eligos2 ouptut
+
+As the results were now split by chromosome I had to rejoin them using another script
+
+```{bash, merge_eligos2_ouput, eval=FALSE}
+
+#!/bin/sh
+# Author: Gregor Diensthuber
+# Purpose: Merge individual output tables from every chromosome into master table
+
+#Check if user has provided a valid directory
+if [ -d "$1" ]; then
+    # Set directory of the user
+    directory=$1
+    # Set output directory
+    output_dir=$2
+    # Loop through the first level subdirectories
+    for subdir in $(find $directory -maxdepth 1 -type d); do
+        # Print the current subdirectory and file being processed
+        echo "Processing subdirectory: $subdir and file: $f"
+        # Find the file ending in "_baseExt0.txt"
+        f=$(find $subdir -maxdepth 1 -name "*_baseExt0.txt")
+        # Check if a file was found
+        if [ -f "$f" ]; then
+            # If the initial file is the one being processed
+            if [ -z $initial_file ]; then
+                initial_file=$f
+                # Copy the header of the first file
+                head -n 1 $initial_file > $output_dir/merge_baseExt0.txt
+            else
+                # Append the file to the initial one
+                tail -n +2 $f >> $output_dir/merge_baseExt0.txt
+            fi
+        fi
+    done
+else
+    echo "Invalid directory"
+fi
+
+```
+
+Afterwards use the filter function to remove homopolymer sequences from each of the files and keep only those containing A in pos0
+
+```{bash, eligos2_filter, eval=FALSE}
+
+singularity exec -e ~/src/eligos2.sif eligos2 filter -i merge_baseExt0_x.txt -sb A --homopolymer
+
+```
+

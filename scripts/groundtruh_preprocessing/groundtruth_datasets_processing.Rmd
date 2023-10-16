@@ -1,0 +1,80 @@
+---
+title: "Lab Name"
+author: "Author Name"
+date: "`r Sys.Date()`"
+output: openintro::lab_report
+---
+
+```{r load-packages, include=FALSE}
+
+library(openintro)
+
+pkgs <- c("backports","tidyverse","here","skimr","dplyr", "ggplot2", "ggsci",
+          "janitor","readxl","xlsx", "MetBrewer","ggrepel", "usethis", "ggpubr")
+
+lapply(pkgs, library, character.only = TRUE)
+
+```
+
+
+# Background
+
+In total we have three data sets which we consider as our orthogonal validation data sets. All of the raw files are stored in `/known_sites/human_m6A/raw`. This folder contains the following:
+
+* miCLIP = `hg38-m6A_sites_HEK293T_miCLIP.bed`
+* GLORI-seq = `GLORI-seq_m6A_sites.tsv`
+* m6ACE-seq = `m6ACE-Seq.csv`
+
+These files were preprocessed using the following scripts to follow the same coordinate scheme:
+
+* miCLIP -> `miCLIP_processing.R` and results saved in `/known_sites/human_m6A/filtered`
+* GLORI-seq -> `GLORI_processing.R` and results saved in `/known_sites/human_m6A/filtered`
+* m6ACE-seq -> csv was converted to tsv using `sed 's/,/\t/g' m6ACE-Seq.csv | cut -f1,2,3,11,14,4 | tail -n +2 | awk 'BEGIN{FS=OFS="\t"} {gsub("chr", "", $1); print}' > ../filtered/m6ACE-Seq.bed`. The adjusted pvalue for WT was kept.
+
+
+### Subsetting GT datasets by coverage and biotype
+
+For subsetting I used the coverage reported by each of the 3 models. For this I used `bedtools coverage` and used as input the previously mentioned preprocessed GT datasets. 
+
+Condition for keeping a site in GT datasets is a min. of 20 reads in at least on model.
+
+```{bash, select_protein_coding, eval=F}
+
+# Step 1: Generate a GT file with coverage information on all three models
+
+bedtools coverage -a m6A_miCLIP_sites_HEK293T.bed -b /no_backup/enovoa/nextflow_outputs/rna_mods_new_models/human/rna_r9.4.1_70bps_hac.cfg/MOP/wt_merge/alignment/wt_merge_s.bam > m6A_miCLIP_sites_HEK293T_hac.bed
+
+bedtools coverage -a m6A_miCLIP_sites_HEK293T_hac.bed -b /no_backup/enovoa/nextflow_outputs/rna_mods_new_models/human/rna_r9.4.1_70bps_ivt_hac.cfg/MOP/wt_merge/alignment/wt_merge_s.bam > m6A_miCLIP_sites_HEK293T_ivt_hac.bed
+
+bedtools coverage -a m6A_miCLIP_sites_HEK293T_ivt_hac.bed -b /no_backup/enovoa/nextflow_outputs/rna_mods_new_models/human/rna_r9.4.1_70bps_sup.cfg/MOP/wt_merge/alignment/wt_merge_s.bam > m6A_miCLIP_sites_HEK293T_sup_ivt_default.bed
+
+# This three step process was performed for all ground truth datasets
+
+
+# Step 2: Filter for minimum coverage of 20 in either of the three models
+
+awk -F'\t' '($2 >= 20) || ($4 >= 20) || ($6 >= 20) { print }' input_file.tsv > output_file.tsv
+
+
+# Lastly all three files were filtered to only contain those sites that are present in protein coding genes (which is the data eligos2 was run on)
+
+bedtools intersect -wa -u -a GLORI_min_cov20_3models.bed -b Homo_sapiens.GRCh38.107_protein_coding_only.bed > GLORI_min_cov20_3models_protein_coding_only.bed
+
+bedtools intersect -u -wa -a m6ACE-Seq_min_cov20_3models.bed -b Homo_sapiens.GRCh38.107_protein_coding_only.bed | awk -F'\t' 'BEGIN {OFS="\t"} {print $1, $2, $3, $5, $6, $4, $7, $11, $15}' > m6ACE-Seq_min_cov20_3models_protein_coding_only.bed
+
+bedtools intersect -u -wa -a m6A_miCLIP_sites_HEK293T_min_cov20_3models.bed -b Homo_sapiens.GRCh38.107_protein_coding_only.bed > m6A_miCLIP_sites_HEK293T_min_cov20_3models_protein_coding_only.bed
+
+
+```
+
+The generated files are located on the cluster in `~/references/misc/human_m6A_sites` and are called:
+
+*`GLORI_min_cov20_3models_protein_coding_only.bed`
+*`m6ACE-Seq_min_cov20_3models_protein_coding_only.bed`
+*`m6A_miCLIP_sites_HEK293T_min_cov20_3models_protein_coding_only.bed`
+
+they were transferred locally and saved in `/known_sites/human_m6A/filtered`. These files were used to generate VennDiagrams of overlaps
+
+
+
+
