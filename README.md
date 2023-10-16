@@ -1,12 +1,10 @@
 # </nobr> Basecalling Models for enhanced RNA modification detection </nobr>
 
-<!-- README.md is generated from README.Rmd. Please edit that file -->
+<!-- badges: start -->
+<!-- badges: end -->
 
 ![](img/logo.png)
 
-
-<!-- badges: start -->
-<!-- badges: end -->
 
 ## Table of Contents
 
@@ -108,8 +106,6 @@ use the provided basecalling model.
 |   nextflow    | 21.04.3 |
 |     CUDA      |   11    |
 
-Packages required ro run each script are further specified in that
-script.
 
 ## Citation
 
