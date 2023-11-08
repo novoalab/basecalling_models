@@ -372,7 +372,7 @@ all_clean_filtered_bplt <- all_clean_filtered %>%
 
 stat.test <- all_clean_filtered_bplt %>% 
   group_by(expected_m6A,is_DRACH) %>% 
-  t_test(d_SumErr_pos_0 ~ model, ref.group = "default", alternative = "less") %>% 
+  wilcox_test(d_SumErr_pos_0 ~ model, ref.group = "default", alternative = "less") %>% 
   adjust_pvalue(method = "hochberg") %>%
   add_significance("p.adj")
 stat.test

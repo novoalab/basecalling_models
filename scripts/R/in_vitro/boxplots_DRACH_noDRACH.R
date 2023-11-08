@@ -43,7 +43,7 @@ m6A_df_3models$model <- factor(m6A_df_3models$model, levels = c("default","ivt+d
 
 stat.test <- m6A_df_3models %>% 
   group_by(is_DRACH) %>% 
-  t_test(d_SumErr_pos_0 ~ model, ref.group = "default") %>% 
+  wilcox_test(d_SumErr_pos_0 ~ model, ref.group = "default") %>% 
   adjust_pvalue(method = "hochberg") %>%
   add_significance("p.adj")
 stat.test
@@ -75,6 +75,7 @@ library(EnvStats)
 library(ggrepel)
 
 m6A_df_3models %>% 
+  # non-DRACH == 0 ; DRACH ==1
   #filter(is_DRACH == 1) %>% 
   ggplot(aes(x=model, y =d_SumErr_pos_0, fill = model)) +
   geom_boxplot(aes(fill = model),

@@ -229,7 +229,7 @@ ggpaired(final_sites, x = "model", y = "c_freq", id = "pos",
          color = "model", line.color = "gray",
          width = 0.25, line.size = 1, point.size = 2) +
   scale_color_manual(values = c('#E64B35FF',"#4DBBD5FF")) +
-  stat_compare_means(method = "t.test", paired = T, label = "p.signif",
+  stat_compare_means(method = "wilcox.test", paired = T, label = "p.signif",
                      comparisons = comparison) +
   labs(x="",y="U:C mismatch frequency [%]") +
   theme_pubr() + t +

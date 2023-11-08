@@ -99,7 +99,7 @@ df_comb <-  m6A_df_3mod_singleA %>%
 
 stat.test <- df_comb %>% 
   group_by(base) %>% 
-  t_test(d_SumErr_pos_0 ~ model, paired = TRUE) %>% 
+  wilcox_test(d_SumErr_pos_0 ~ model, paired = TRUE) %>% 
   adjust_pvalue(method = "hochberg") %>%
   add_significance("p.adj")
 stat.test
@@ -168,7 +168,7 @@ df_comb_sup <-  m6A_df_3mod_singleA %>%
 
 stat.test <- df_comb_sup %>% 
   group_by(base) %>% 
-  t_test(d_SumErr_pos_0 ~ model, paired = TRUE) %>% 
+  wilcox_test(d_SumErr_pos_0 ~ model, paired = TRUE) %>% 
   adjust_pvalue(method = "hochberg") %>%
   add_significance("p.adj")
 stat.test

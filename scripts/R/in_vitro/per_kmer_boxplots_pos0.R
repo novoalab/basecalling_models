@@ -24,8 +24,9 @@ central_mod_3models <- central_mod_3models %>%
 ### Task 4: Calculate pval and correct for multiple hypothesis testing
 
 stat.test <- central_mod_3models %>% 
+  filter(modification != "UNM") %>% 
   group_by(modification) %>% 
-  t_test(delta_per_pos ~ model, ref.group = "default") %>% 
+  wilcox_test(delta_per_pos ~ model, ref.group = "default") %>% 
   adjust_pvalue(method = "hochberg") %>%
   add_significance("p.adj")
 stat.test
