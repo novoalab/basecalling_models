@@ -1,17 +1,19 @@
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+![](img/logo.png)
+
 # </nobr> Basecalling Models for enhanced RNA modification detection </nobr>
 
 <!-- badges: start -->
 <!-- badges: end -->
 
-![](img/logo.png)
-
-
 ## Table of Contents
 
 - [General](#General)
 - [How to use these models?](#How%20to%20use%20these%20models?)
-  - [Standalone](#Standalone)
-  - [Master of Pores](#Master-of-Pores)
+  - [Standalone](#Create-new-annotation-files)
+  - [Master of Pores](#Map-reads-to-cytoplasmic-ribosomal-RNA-sequences)
 - [Software versions](#Software-versions)
 - [Citation](#Citation)
 
@@ -106,12 +108,15 @@ use the provided basecalling model.
 |   nextflow    | 21.04.3 |
 |     CUDA      |   11    |
 
+Packages required ro run each script are further specified in that
+script.
 
 ## Citation
 
 If you find this work useful, please cite:
 
-Diensthuber G\*, Pryszcz L\*, Delgado-Tejedor A, Llovera L., Lucas MC.,
-Begik 0. and Novoa EM.: Enhanced detection of RNA modifications with
-high-accuracy nanopore RNA basecalling models. bioRXiv 2023.
-<doi:%5BTBA%5D>.
+Diensthuber G.\*, Pryszcz L.\*, Llovera L., Lucas MC., Delgado-Tejedor
+A, Cruciani S., Roignant JY., Begik 0. and Novoa EM.: Enhanced detection
+of RNA modifications and mappability with high-accuracy nanopore RNA
+basecalling models. bioRXiv 2023. doi:
+<https://www.biorxiv.org/content/10.1101/2023.11.28.568965v1>
