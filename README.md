@@ -11,7 +11,7 @@
 ## Table of Contents
 
 - [General](#General)
-- [How to use these models?](#How%20to%20use%20these%20models?)
+- [How to use these models?](#How-to-use-these-models?)
   - [Standalone](#Create-new-annotation-files)
   - [Master of Pores](#Map-reads-to-cytoplasmic-ribosomal-RNA-sequences)
 - [Software versions](#Software-versions)
