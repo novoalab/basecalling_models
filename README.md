@@ -39,7 +39,7 @@ published results can be found in `/scripts`
 
 When using guppy standalone make sure version 6.0.6 or higher is
 installed on your system. Next, download the files of each model from
-[OSF](https://osf.io/2xgkp/). This should include two files per model:
+[OSF](https://osf.io/2xgkp/). This should include three files per model:
 
 ``` bash
 rna_r9.4.1_70bps_<model>.cfg
@@ -114,7 +114,7 @@ script.
 
 If you find this work useful, please cite:
 
-Diensthuber G.\*, Pryszcz LP.\*, Llovera L., Lucas MC., Delgado-Tejedor
+Diensthuber G.\*, Pryszcz L.\*, Llovera L., Lucas MC., Delgado-Tejedor
 A, Cruciani S., Roignant JY., Begik 0. and Novoa EM.: Enhanced detection
 of RNA modifications and mappability with high-accuracy nanopore RNA
 basecalling models. bioRXiv 2023. doi:

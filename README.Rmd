@@ -49,7 +49,6 @@ When using guppy standalone make sure version 6.0.6 or higher is installed on yo
 
 ```bash
 rna_r9.4.1_70bps_<model>.cfg
-rna_r9.4.1_70bps_<model>.cfg~ 
 template_rna_r9.4.1_70bps_<model>.jsn
 ```
 
