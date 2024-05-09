@@ -11,7 +11,7 @@
 ## Table of Contents
 
 - [General](#General)
-- [How to use these models?](#How-to-use-these-models?)
+- [How to use these models?](#How%20to%20use%20these%20models?)
   - [Standalone](#Create-new-annotation-files)
   - [Master of Pores](#Map-reads-to-cytoplasmic-ribosomal-RNA-sequences)
 - [Software versions](#Software-versions)
@@ -28,6 +28,7 @@ Technologies platform. The tested base calling models are listed below:
 |    default    |   rna_r9.4.1_70bps_hac   |           tayaki           |                                          not disclosed                                           | flip-flop  |      1.99       |           91%           | guppy v6.0.6 |    all guppy versions    |
 |      IVT      | rna_r9.4.1_70bps_ivt_hac |           tayaki           | [Nanopore-WGS-Consortium](https://github.com/nanopore-wgs-consortium/NA12878/blob/master/RNA.md) | flip-flop  |      1.99       |           88%           | *this work*  |    all guppy versions    |
 |      SUP      |   rna_r9.4.1_70bps_sup   |           bonito           |                 [PRJEB40872](https://www.ebi.ac.uk/ena/browser/view/PRJEB40872)                  |  CRF-CTC   |       27        |           97%           | *this work*  | guppy v6.0.6 and upwards |
+|    IVT_SUP    | rna_r9.4.1_70bps_ivt_sup |           bonito           | [Nanopore-WGS-Consortium](https://github.com/nanopore-wgs-consortium/NA12878/blob/master/RNA.md) |  CRF-CTC   |       27        |           97%           | *this work*  | guppy v6.0.6 and upwards |
 
 All files required to run guppy (v6.0.6) with these models can be
 downloaded from [OSF](https://osf.io/2xgkp/). Code required to reproduce
